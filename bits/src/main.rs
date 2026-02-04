@@ -1,31 +1,85 @@
 #![allow(warnings)]   
 use std::io;
+use std::env;
+use std::any::type_name;
 
 /*TODO: Increase the size to 128 bits! */
 
 //Global array for tracking types of bytes
-static byte_array:[&str; 7] = ["b", "KB", "MB", "GB", "TB", "PB", "EB"];
+static byte_array:[&str; 7] = ["B", "KB", "MB", "GB", "TB", "PB", "EB"];
+
+fn type_of<T>(_: &T) -> &str {
+    type_name::<T>()
+}
 
 
 fn main() {
 
-    let mut byte_lims:[u64; 7] = [0,0,0,0,0,0,0];
-    init_bytes(&mut byte_lims);
+    let args: Vec<String> = env::args().collect();
+
+
     
-    loop 
+    if args.len() == 1 {
+        
+        let mut byte_lims:[u64; 7] = [0,0,0,0,0,0,0];
+        init_bytes(&mut byte_lims);
+
+        loop 
+        {
+            println!("\n\n\nConvert a 64 bit integer into it's corresponding [KB,MB,GB,TB,PB,EB]!\n");
+
+            let mut input = String::new();
+            io::stdin()
+            .read_line(&mut input)
+            .unwrap();
+            //Check for (input = 4KB) for example'
+            let bit: u64 = input.trim().parse().unwrap();
+
+            let mut lim:f64 = 0.0;
+            let mut suffix:&str = "";
+            (lim, suffix) = bits_to_bytes(bit, &mut byte_lims);
+            println!("{bit} bits = {lim} {suffix}");
+        }
+    }
+    else if args.len() == 2 
     {
-        println!("\n\n\nConvert a 64 bit integer into it's corresponding [KB,MB,GB,TB,PB,EB]!\n");
+        loop
+        {
+            println!("Chose to convert from [B... EB] to bits amount");
+            println!("Type number:  ");
 
-        let mut input = String::new();
-        io::stdin()
-        .read_line(&mut input)
-        .unwrap();
-        let bit: u64 = input.trim().parse().unwrap();
+            let mut input = String::new();
+            io::stdin()
+            .read_line(&mut input)
+            .expect("Failed to read line");
 
-        let mut lim:f64 = 0.0;
-        let mut suffix:&str = "";
-        (lim, suffix) = bits_to_bytes(bit, &mut byte_lims);
-        println!("{bit} bits = {lim} {suffix}");
+            println!("Type [B ... EB]");
+            let mut bytesz = String::new();
+            io::stdin()
+            .read_line(&mut bytesz)
+            .expect("Failed to read");
+            
+            let uppercase = bytesz.trim().to_uppercase();
+            let mut exp:u64 = 0;
+
+            for (byteIDX, b) in byte_array.iter().enumerate() 
+            {
+                if uppercase == *b{
+                    exp = byteIDX as u64;
+                    break;
+                }
+            }
+
+            exp *= 10;
+            let mut res:u64 = input.trim().parse().expect("INT"); 
+            let offset:u64 = res * 2u64.pow((exp as u32).try_into().unwrap()) as u64;
+            println!("Result : {offset} bits");
+        }
+
+        return;
+
+
+        
     }
     
     
