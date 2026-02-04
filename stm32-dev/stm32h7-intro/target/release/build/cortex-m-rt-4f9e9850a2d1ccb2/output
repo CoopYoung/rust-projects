@@ -1,0 +1,8 @@
+cargo:rustc-check-cfg=cfg(armv6m)
+cargo:rustc-check-cfg=cfg(armv7m)
+cargo:rustc-check-cfg=cfg(armv8m)
+cargo:rustc-check-cfg=cfg(cortex_m)
+cargo:rustc-check-cfg=cfg(has_fpu)
+cargo:rustc-link-search=/home/coop/rust-projects/stm32-dev/stm32h7-intro/target/release/build/cortex-m-rt-4f9e9850a2d1ccb2/out
+cargo:rerun-if-changed=build.rs
+cargo:rerun-if-changed=link.x.in

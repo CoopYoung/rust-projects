@@ -1,0 +1,1 @@
+{"rustc":4758242423518056681,"features":"[]","declared_features":"[]","target":17044291316780724393,"profile":2040997289075261528,"path":7609581765027040010,"deps":[],"local":[{"CheckDepInfo":{"dep_info":"release/.fingerprint/rtic-monotonic-8913991605a289a2/dep-lib-rtic_monotonic","checksum":false}}],"rustflags":[],"config":2069994364910194474,"compile_kind":0}

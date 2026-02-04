@@ -1,0 +1,3 @@
+cargo:rustc-link-search=/home/coop/rust-projects/stm32-dev/stm32h7-intro/target/release/build/defmt-35693a40e4284182/out
+cargo:rustc-check-cfg=cfg(c_variadic)
+cargo:rustc-check-cfg=cfg(no_cas)

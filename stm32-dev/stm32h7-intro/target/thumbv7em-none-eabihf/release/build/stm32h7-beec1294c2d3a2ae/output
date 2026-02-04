@@ -1,0 +1,3 @@
+cargo:rustc-link-search=/home/coop/rust-projects/stm32-dev/stm32h7-intro/target/thumbv7em-none-eabihf/release/build/stm32h7-beec1294c2d3a2ae/out
+cargo:rerun-if-changed=src/stm32h753v/device.x
+cargo:rerun-if-changed=build.rs
